@@ -14,7 +14,7 @@ Here we are using the _Single Pose Estimation_ which is the simpler and faster. 
 - Name it as **Pose Estimation Project**
 - Now install the required packages in **Python Interpreter Files-> Settings-> Python Interpreter**
 - Install, **mediapipe, opencv-python, imutilis, win10toast**
-- In this project, we have 4 Python files.
+- In this project, we have 4 Python files and run those files in the order given below:
 1. PoseEst_Basics
 2. PoseModule
 3. Webcam_Pose
