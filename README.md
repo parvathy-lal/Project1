@@ -3,7 +3,7 @@
 ## Overview
 This is an AI/ML model which estimates different body postures and detect the occuring of sudden fall. Then generates an alert. 
 
-Here we are using the _Single Pose Estimation_ which is the simpler and faster. Its ideal usecase is for whe,n there is only one person in the image. _Post Estimation_ can be done by **Human Pose Skeleton** represents which is a set of coordinates that can be connected to describe the pose of the person. 
+Here we are using the _Single Pose Estimation_ which is the simpler and faster. Its ideal usecase is for when, there is only one person in the image. _Post Estimation_ can be done by **Human Pose Skeleton** represents which is a set of coordinates that can be connected to describe the pose of the person. 
 
 ## Installation 
 
@@ -88,7 +88,7 @@ def __init__(self, mode = False, upBody = False, smooth = True,detectionCon = 0.
     self.pose = self.mpPose.Pose(self.mode, self.upBody, self.smooth, self.detectionCon, self.trackCon)
 ```
 
-Then we create two functions namely, '_findPose_' and '_findPosition_', in which _findPose_ returns  _img_ and _findPosition_ returns a list of landmarks.
+Then we create two functions namely, '_findPose_' and '_findPosition_', in which _findPose_ returns  image and _findPosition_ returns a list of landmarks.
 ```
 [[0, 393, 151], [1, 398, 142], [2, 402, 141], [3, 406, 141], [4, 388, 143], [5, 385, 144], [6, 382, 144], [7, 414, 144], [8, 382, 148], [9, 402, 159], [10, 389, 161], [11, 444, 187], [12, 377, 209], [13, 452, 243], [14, 369, 276], [15, 415, 252], [16, 348, 334], [17, 405, 261], [18, 341, 355], [19, 392, 249], [20, 344, 356], [21, 393, 249], [22, 349, 347], [23, 460, 332], [24, 409, 338], [25, 497, 413], [26, 386, 420], [27, 531, 497], [28, 384, 497], [29, 529, 512], [30, 388, 509], [31, 545, 523], [32, 369, 525]]
 ...........................................................................................................................................................................................................................................................................................................................
@@ -115,7 +115,7 @@ The output will be:
 
 
 ### **Alert_On_Fall.py**
-Here comes our exact target. We tried to send an alert on the occuring of sudden fall. For fall detection, we find out the boundaries and marked it as a green rectangle. When the boundary values get changed, it will detect the falling and boundaries will be started showing as a red rectangle.
+Here comes our exact target. We tried to send an alert on the occuring of sudden fall. For fall detection, we find out the boundaries and marked it as a green rectangle. When the boundary values get changed, it will detect the falling and boundaries will be started showing as a red rectangle. Then generates the alert.
 
 ```
 x, y, w, h = cv2.boundingRect(cnt)
@@ -126,7 +126,7 @@ if j > 10:
     cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
 ```
 
-Whenever an anomaly detected, an alert will be generated. For alert, we have to install **_win10toast_** package and alert formed as,
+For alert, we have to install **_win10toast_** package and alert formed as,
 
 ``` 
 hr = ToastNotifier()
