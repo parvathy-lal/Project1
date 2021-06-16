@@ -1,14 +1,10 @@
 # Pose Estimation & Alert Generation for Sudden Fall
 
 ## Overview
-This is an AI/ML model which estimates different body postures by means of human pose skeleton. A **Human Pose Skeleton** represents the orientation of a person in a graphical format. Essentially, it is a set of coordinates that can be connected to describe the pose of the person. Each coordinate in the skeleton is known as a part (or a joint, or a keypoint). A valid connection between two parts is known as a pair (or a limb).
+This is an AI/ML model which estimates different body postures and detect the occuring of sudden fall. Then generates an alert. 
 
+Here we are using the Single Pose Estimation which is the simpler and faster of the two algorithms. Its ideal use case is for when there is only one person in the image. Post Estimation can be done by **Human Pose Skeleton** represents which is a set of coordinates that can be connected to describe the pose of the person. 
 
-
-## Usage
-Here we are using the Single Pose Estimation
-### **Single Pose Estimation**
-Single pose estimation is the simpler and faster of the two algorithms. Its ideal use case is for when there is only one person in the image.
 ## Installation 
 
 - If you don't have it already, install Pycharm Community 2021.1.1  or later, following the instructions on the website
@@ -25,7 +21,7 @@ Single pose estimation is the simpler and faster of the two algorithms. Its idea
 4. AlertOnFall
 
 ## Key Points
-Our model takes a processed camera image as the input and outputs information about keypoints. The keypoints detected are indexed by a part ID, with a confidence score between 0.0 and 1.0. The confidence score indicates the probability that a keypoint exists in that position.
+Our model takes a processed video as the input and outputs the information about keypoints. The keypoints detected are indexed by a part ID, with a confidence score between 0.0 and 1.0. The confidence score indicates the probability that a keypoint exists in that position.
 
 
 The various body joints detected by our model are tabulated below:
@@ -52,7 +48,7 @@ The various body joints detected by our model are tabulated below:
 ![](https://i1.wp.com/www.marktechpost.com/wp-content/uploads/2020/08/Screenshot-2020-08-25-at-10.01.08-PM.png?fit=1039%2C620&ssl=1)
 
 ### **PoseEst_Basics.py**
-Here our model detect the keypoints on the body parts, and get marked. These marked points can be connected together to form the **Human Pose Skeleton**.
+Here our model detect and mark the keypoints on the body parts. These marked points can be connected together to form the **Human Pose Skeleton**.
 
 ```
 mpDraw = mp.solutions.drawing_utils
@@ -60,7 +56,7 @@ mpPose = mp.solutions.pose
 pose = mpPose.Pose()
 cap = cv2.VideoCapture('Pose Videos/video1.mp4')
 ```
-When condition is True,
+Whenever the condition is True,
 ``` 
 img = cap.read()
 results = pose.process(imgRGB)
@@ -79,7 +75,7 @@ cv2.waitKey(1)
 ![](https://learnopencv.com/wp-content/uploads/2018/05/OpenPose.jpg)
 
 ### **Pose_Module.py**
-In this module, we are tryimg to fing out the pose and the position. For that, first of all, we have to create  a class named '_poseDetector_'.
+In this module, we are trying to find out the pose and the position. For that, we have to create a class named '_poseDetector_'.
 ```
 def __init__(self, mode = False, upBody = False, smooth = True,detectionCon = 0.5, trackCon = 0.5):
     self.mode = mode
@@ -92,7 +88,7 @@ def __init__(self, mode = False, upBody = False, smooth = True,detectionCon = 0.
     self.pose = self.mpPose.Pose(self.mode, self.upBody, self.smooth, self.detectionCon, self.trackCon)
 ```
 
-Then we create two functions namely, '_findPose_', '_findPosition_', in which _findPose_ returns  _img_ and _findPosition_ returns a list of estimate such as
+Then we create two functions namely, '_findPose_' and '_findPosition_', in which _findPose_ returns  _img_ and _findPosition_ returns a list of landmarks.
 ```
 [[0, 393, 151], [1, 398, 142], [2, 402, 141], [3, 406, 141], [4, 388, 143], [5, 385, 144], [6, 382, 144], [7, 414, 144], [8, 382, 148], [9, 402, 159], [10, 389, 161], [11, 444, 187], [12, 377, 209], [13, 452, 243], [14, 369, 276], [15, 415, 252], [16, 348, 334], [17, 405, 261], [18, 341, 355], [19, 392, 249], [20, 344, 356], [21, 393, 249], [22, 349, 347], [23, 460, 332], [24, 409, 338], [25, 497, 413], [26, 386, 420], [27, 531, 497], [28, 384, 497], [29, 529, 512], [30, 388, 509], [31, 545, 523], [32, 369, 525]]
 ...........................................................................................................................................................................................................................................................................................................................
@@ -102,8 +98,12 @@ Then we create two functions namely, '_findPose_', '_findPosition_', in which _f
 ![](https://cdn-images-1.medium.com/max/600/1*H2ViR54BACV0patPZmhHnw.gif)
 
 ### **WebCam_Pose.py**
-In this module, we have tried to estimate the poses in realtime. Instead of using pre-downloaded videos, we are using webcam of capturing the video.
+In this module, we are using webcam for capturing the video to estimate the poses 
 
+```
+cap = cv2.VideoCapture(0)
+cv2.imshow("Webcam", img)
+```
 The output will be:
 
 [[0, 348, 257], [1, 371, 224], [2, 386, 224], [3, 399, 223], [4, 327, 224], [5, 313, 224], [6, 298, 224], [7, 411, 233], [8, 279, 239], [9, 376, 291], [10, 321, 292], [11, 440, 358], [12, 195, 374], [13, 472, 515], [14, 144, 542], [15, 381, 365], [16, 130, 642], [17, 364, 333], [18, 112, 681], [19, 367, 317], [20, 136, 668], [21, 366, 331], [22, 151, 654], [23, 386, 667], [24, 228, 663], [25, 366, 889], [26, 225, 893], [27, 349, 1092], [28, 219, 1090], [29, 346, 1126], [30, 212, 1124], [31, 335, 1162], [32, 240, 1163]]
@@ -115,9 +115,7 @@ The output will be:
 
 
 ### **Alert_On_Fall.py**
-Here comes our exact target. We have tried to send alert on the occuring of anomalies in body poses like sudden fall. 
-
-For fall detection, we find out the boundaries first and marked it as a rectangle. When the boundary values get changed, it will detect the falling. Boundaries will be started showing as a red rectangle.
+Here comes our exact target. We tried to send an alert on the occuring of sudden fall. For fall detection, we find out the boundaries and marked it as a green rectangle. When the boundary values get changed, it will detect the falling and boundaries will be started showing as a red rectangle.
 
 ```
 x, y, w, h = cv2.boundingRect(cnt)
@@ -143,5 +141,24 @@ Output will be,
 []
 []
 []
-[].....................................................................................................................................................................................................................................................
-
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
