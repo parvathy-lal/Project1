@@ -3,18 +3,18 @@
 ## Overview
 This is an AI/ML model which estimates different body postures and detect the occuring of sudden fall. Then generates an alert. 
 
-Here we are using the Single Pose Estimation which is the simpler and faster of the two algorithms. Its ideal use case is for when there is only one person in the image. Post Estimation can be done by **Human Pose Skeleton** represents which is a set of coordinates that can be connected to describe the pose of the person. 
+Here we are using the _Single Pose Estimation_ which is the simpler and faster. Its ideal usecase is for whe,n there is only one person in the image. _Post Estimation_ can be done by **Human Pose Skeleton** represents which is a set of coordinates that can be connected to describe the pose of the person. 
 
 ## Installation 
 
 - If you don't have it already, install Pycharm Community 2021.1.1  or later, following the instructions on the website
 
-### Usage
-- Open Pycharm Community, and from the **Welcome** screen, select New project.
+## Usage
+- Open Pycharm Community, and from the **Welcome** screen, select **New Project**.
 - Name it as **Pose Estimation Project**
-- Now install the required packages in Python Interpreter Files-> Settings-> Python Interpreter
+- Now install the required packages in **Python Interpreter Files-> Settings-> Python Interpreter**
 - Install, **mediapipe, opencv-python, imutilis, win10toast**
-- IN this project, we have 4 Python files.
+- In this project, we have 4 Python files.
 1. PoseEst_Basics
 2. PoseModule
 3. Webcam_Pose
@@ -126,7 +126,7 @@ if j > 10:
     cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
 ```
 
-When an anomaly detected, an alert will be generated. For alert, we have to install **_win10toast_** package and alert formed as,
+Whenever an anomaly detected, an alert will be generated. For alert, we have to install **_win10toast_** package and alert formed as,
 
 ``` 
 hr = ToastNotifier()
