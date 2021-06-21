@@ -24,26 +24,7 @@ Here we are using the _Single Pose Estimation_ which is the simpler and faster. 
 Our model takes a processed video as the input and outputs the information about keypoints. The keypoints detected are indexed by a part ID, with a confidence score between 0.0 and 1.0. The confidence score indicates the probability that a keypoint exists in that position.
 
 
-The various body joints detected by our model are tabulated below:
-|Id|Part|
-|------|----------|
-|0|Nose|
-|1|leftEye|
-|2|rightEye|
-|3|leftEar|
-|4|rightEar|
-|5|leftShoulder|
-|6|rightShoulder|
-|7|leftElbow|
-|8|rightElbow|
-|9|leftWrist|
-|10|rightWrist|
-|11|leftHip|
-|12|rightHip|
-|13|leftKnee|
-|14|rightKnee|
-|15|leftAnkle|
-|16|rightAnkle|
+The various body joints detected by our model are:
 
 ![](https://i1.wp.com/www.marktechpost.com/wp-content/uploads/2020/08/Screenshot-2020-08-25-at-10.01.08-PM.png?fit=1039%2C620&ssl=1)
 
